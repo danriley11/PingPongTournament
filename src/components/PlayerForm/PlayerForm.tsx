@@ -12,7 +12,7 @@ const PlayerForm = () => {
   const watchedPlayerName = watch('playerNameFieldName');
 
   return (
-    <form>
+    <div>
       <Controller
         control={control}
         name="playerNameFieldName"
@@ -25,8 +25,6 @@ const PlayerForm = () => {
       <div>
         <p>Games won</p>
         {/* <Radio id={'deathSaves2'} name={'deathSaves'} label={'2'} value={''} /> */}
-        {/* <Radio id={'deathSaves2'} name={'deathSaves'} label={'2'} value={''} /> */}
-        {/* <Radio id={'deathSaves3'} name={'deathSaves'} label={'3'} value={''} /> */}
       </div>
 
       <Controller
@@ -35,7 +33,7 @@ const PlayerForm = () => {
         rules={{ required: true }}
         render={({ field }) => <Counter label={'Score'} value={Number(field.value)} />}
       />
-    </form>
+    </div>
   );
 };
 
