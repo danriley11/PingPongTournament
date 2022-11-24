@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
+import { useEffect, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import './App.css';
 import { CounterButton } from './components/buttons/CounterButton.styles';
 import { Grid } from './components/core/displays.styles';
@@ -33,6 +33,8 @@ function App() {
   //TODO: Save match should update to airtable
   //TODO: Reset button should clear form
 
+  //TODO: have registered playerScores submit with respective counts
+  //TODO: resolve counterButton styled component not working
   return (
     <form onSubmit={onSubmit}>
       <Grid cols="1fr 1fr 1fr 1fr 1fr" marginLeft={20} style={{ border: '3px solid red' }}>
