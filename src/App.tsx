@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import './App.css';
 import { CounterButton } from './components/buttons/CounterButton.styles';
@@ -14,8 +14,6 @@ import {
 } from './components/styles/Containers.styles';
 import { Arrow } from './components/styles/Inputs.styles';
 import { LabelStyled, List, ListItem } from './components/styles/Typography.styles';
-import { useForm } from 'react-hook-form';
-import { ButtonContainer } from './components/buttons/RollerButton.styles';
 
 function App() {
   const [player1ScoreState, setPlayer1ScoreState] = useState(0);
@@ -32,9 +30,6 @@ function App() {
   //TODO: Save match should also correctly catch score
   //TODO: Save match should update to airtable
   //TODO: Reset button should clear form
-
-  //TODO: have registered playerScores submit with respective counts
-  //TODO: resolve counterButton styled component not working
   return (
     <form onSubmit={onSubmit}>
       <Grid cols="1fr 1fr 1fr 1fr 1fr" marginLeft={20} style={{ border: '3px solid red' }}>
