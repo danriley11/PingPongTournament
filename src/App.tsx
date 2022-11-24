@@ -5,13 +5,17 @@ import { CounterButton } from './components/buttons/CounterButton.styles';
 import { Grid } from './components/core/displays.styles';
 import { PingPongFormData, playerList } from './components/PingPongForm.constants';
 import {
+  ControlsContainer,
   CounterContainer,
   GamesWonContainer,
+  InputContainer,
   NameInputContainer,
   PlayerNamesContainer,
 } from './components/styles/Containers.styles';
 import { Arrow } from './components/styles/Inputs.styles';
 import { LabelStyled, List, ListItem } from './components/styles/Typography.styles';
+import { useForm } from 'react-hook-form';
+import { ButtonContainer } from './components/buttons/RollerButton.styles';
 
 function App() {
   const [player1ScoreState, setPlayer1ScoreState] = useState(0);
@@ -102,23 +106,25 @@ function App() {
             onClick={() => setIsArrowRight(!isArrowRight)}
           />
 
-          <div style={{ height: '128px' }} />
-          <CounterButton
-            $width={128}
-            $height={80}
-            marginBottom={40}
-            onClick={() => setIsArrowRight(!isArrowRight)}>
-            Swap Server
-          </CounterButton>
-          <CounterButton $width={128} $height={80} marginBottom={40}>
-            Next Game
-          </CounterButton>
-          <CounterButton $width={128} $height={80} marginBottom={40} onClick={() => onSubmit()}>
-            Save Match
-          </CounterButton>
-          <CounterButton $width={128} $height={80} marginBottom={40}>
-            Reset
-          </CounterButton>
+          <ControlsContainer>
+            <CounterButton
+              $width={128}
+              $height={80}
+              marginBottom={40}
+              onClick={() => setIsArrowRight(!isArrowRight)}>
+              Swap Server
+            </CounterButton>
+
+            <CounterButton $width={128} $height={80} marginBottom={40}>
+              Next Game
+            </CounterButton>
+            <CounterButton $width={128} $height={80} marginBottom={40} onClick={() => onSubmit()}>
+              Save Match
+            </CounterButton>
+            <CounterButton $width={128} $height={80} marginBottom={40}>
+              Reset
+            </CounterButton>
+          </ControlsContainer>
         </div>
         {/* TODO: Uniquely identify form */}
         <div id="rightColumn">

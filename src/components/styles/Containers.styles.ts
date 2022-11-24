@@ -31,3 +31,12 @@ export const PlayerNamesContainer = styled.div`
   box-sizing: border-box;
   text-align: center;
 `;
+
+export const ControlsContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row: 1fr 1fr 1fr 1fr;
+  justify-items: center;
+
+  padding: 0px;
+`;
