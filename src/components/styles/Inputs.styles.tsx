@@ -6,3 +6,8 @@ export const CounterButton = styled.button<React.ButtonHTMLAttributes<HTMLButton
   height: 32px;
   text-align: center;
 `;
+
+export const Arrow = styled.img<{ isArrowRight: boolean }>`
+  transform: scaleX(${({ isArrowRight }) => (isArrowRight ? '1' : '-1')});
+  width: 100px;
+`;

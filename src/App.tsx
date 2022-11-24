@@ -1,33 +1,41 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import './App.css';
 import { CounterButton } from './components/buttons/CounterButton.styles';
 import { Grid } from './components/core/displays.styles';
-import { PingPongFormData } from './components/PingPongForm.constants';
+import { PingPongFormData, playerList } from './components/PingPongForm.constants';
 import {
+  ControlsContainer,
   CounterContainer,
   GamesWonContainer,
+  InputContainer,
   NameInputContainer,
+  PlayerNamesContainer,
 } from './components/styles/Containers.styles';
-import { LabelStyled } from './components/styles/Typography.styles';
+import { Arrow } from './components/styles/Inputs.styles';
+import { LabelStyled, List, ListItem } from './components/styles/Typography.styles';
 
 function App() {
   const [player1ScoreState, setPlayer1ScoreState] = useState(0);
   const [player2ScoreState, setPlayer2ScoreState] = useState(0);
+  const [isActive, setIsActive] = useState(true);
+  const [isArrowRight, setIsArrowRight] = useState(true);
 
   const formMethods = useForm<PingPongFormData>();
-  const { register, handleSubmit } = formMethods;
+  const { register, handleSubmit, reset } = formMethods;
 
   const onSubmit = handleSubmit((formData) => console.log(formData));
 
-  //TODO: have registered playerScores submit with respective counts
-  //TODO: resolve counterButton styled component not working
+  //TODO: Player list items should change colour independently
+  //TODO: Save match should also correctly catch score
+  //TODO: Save match should update to airtable
+  //TODO: Reset button should clear form
   return (
     <form onSubmit={onSubmit}>
       <Grid cols="1fr 1fr 1fr 1fr 1fr" marginLeft={20} style={{ border: '3px solid red' }}>
         <div />
         {/* TODO: Uniquely identify form */}
-        <div>
+        <div id="leftColumn">
           <NameInputContainer>
             <LabelStyled>Player Name</LabelStyled>
             <input type="text" {...register('player1NameFieldName')} />
@@ -75,25 +83,72 @@ function App() {
               +
             </CounterButton>
           </CounterContainer>
+
+          <LabelStyled>Player list</LabelStyled>
+          <PlayerNamesContainer>
+            <List id="14">
+              {playerList.map((player) => (
+                <ListItem
+                  key={player.name}
+                  id={player.name}
+                  isActive={isActive}
+                  onClick={() => setIsActive(!isActive)}>
+                  {player.name}
+                </ListItem>
+              ))}
+            </List>
+          </PlayerNamesContainer>
         </div>
-        <div>
+        <div id="middleColumn">
           <h1>VS</h1>
-          <div style={{ height: '128px' }} />
-          <CounterButton $width={128} $height={80} marginBottom={40}>
-            Swap Server
-          </CounterButton>
-          <CounterButton $width={128} $height={80} marginBottom={40}>
-            Next Game
-          </CounterButton>
-          <CounterButton $width={128} $height={80} marginBottom={40} onClick={() => onSubmit()}>
-            Save Match
-          </CounterButton>
-          <CounterButton $width={128} $height={80} marginBottom={40}>
-            Reset
-          </CounterButton>
+
+          <Arrow
+            src="serverArrow.svg"
+            isArrowRight={isArrowRight}
+            onClick={() => setIsArrowRight(!isArrowRight)}
+          />
+
+          <ControlsContainer>
+            <CounterButton
+              $width={128}
+              $height={80}
+              marginBottom={40}
+              onClick={() => setIsArrowRight(!isArrowRight)}>
+              Swap Server
+            </CounterButton>
+
+            <CounterButton
+              $width={128}
+              $height={80}
+              marginBottom={40}
+              onClick={() => {
+                setPlayer1ScoreState(0);
+                setPlayer2ScoreState(0);
+              }}>
+              Next Game
+            </CounterButton>
+            <CounterButton $width={128} $height={80} marginBottom={40} onClick={() => onSubmit()}>
+              Save Match
+            </CounterButton>
+            <CounterButton
+              $width={128}
+              $height={80}
+              marginBottom={40}
+              onClick={() => {
+                reset({
+                  player1NameFieldName: '',
+                  player1GamesWonFieldName: '',
+                  player2NameFieldName: '',
+                  player2GamesWonFieldName: '',
+                });
+                setPlayer1ScoreState(0);
+                setPlayer2ScoreState(0);
+              }}>
+              Reset
+            </CounterButton>
+          </ControlsContainer>
         </div>
-        {/* TODO: Uniquely identify form */}
-        <div>
+        <div id="rightColumn">
           <NameInputContainer>
             <LabelStyled>Player Name</LabelStyled>
             <input type="text" {...register('player2NameFieldName')} />
