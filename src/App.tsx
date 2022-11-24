@@ -1,61 +1,80 @@
-import React from 'react';
-import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useEffect, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import './App.css';
 import { CounterButton } from './components/buttons/CounterButton.styles';
 import { Grid } from './components/core/displays.styles';
 import { PingPongFormData } from './components/PingPongForm.constants';
+import {
+  CounterContainer,
+  GamesWonContainer,
+  NameInputContainer,
+} from './components/styles/Containers.styles';
+import { LabelStyled } from './components/styles/Typography.styles';
 
 function App() {
-  const [scoreCount1, setScoreCount1] = useState(0);
-  const [scoreCount2, setScoreCount2] = useState(0);
+  const [player1ScoreState, setPlayer1ScoreState] = useState(0);
+  const [player2ScoreState, setPlayer2ScoreState] = useState(0);
 
   const formMethods = useForm<PingPongFormData>();
-  const { register, watch, handleSubmit, control } = formMethods;
+  const { register, handleSubmit } = formMethods;
 
-  const onSubmit = handleSubmit(() => {});
+  const onSubmit = handleSubmit((formData) => console.log(formData));
 
+  //TODO: have registered playerScores submit with respective counts
+  //TODO: resolve counterButton styled component not working
   return (
     <form onSubmit={onSubmit}>
       <Grid cols="1fr 1fr 1fr 1fr 1fr" marginLeft={20} style={{ border: '3px solid red' }}>
         <div />
         {/* TODO: Uniquely identify form */}
         <div>
-          <div>
-            <label>Player 1 name</label>
+          <NameInputContainer>
+            <LabelStyled>Player Name</LabelStyled>
             <input type="text" {...register('player1NameFieldName')} />
-          </div>
+          </NameInputContainer>
 
-          <div>
-            <p>Games won</p>
-            {/* <Radio id={'deathSaves2'} name={'deathSaves'} label={'2'} value={''} /> */}
-          </div>
+          <GamesWonContainer>
+            <LabelStyled>Games won</LabelStyled>
+            <div>
+              <input
+                type="checkbox"
+                id="Game1"
+                {...register('player1GamesWonFieldName')}
+                style={{ accentColor: 'green' }}
+              />
+              <input
+                type="checkbox"
+                id="Game2"
+                {...register('player1GamesWonFieldName')}
+                style={{ accentColor: 'green' }}
+              />
+            </div>
+          </GamesWonContainer>
 
-          <div>
-            <button
-              type="button"
-              style={{ backgroundColor: 'grey' }}
-              onClick={() => setScoreCount1(scoreCount1 - 1)}>
+          <LabelStyled>Player score</LabelStyled>
+          <CounterContainer>
+            <CounterButton onClick={() => setPlayer1ScoreState(player1ScoreState - 1)}>
               -
-            </button>
+            </CounterButton>
             <input
+              {...register('player1ScoreCounterFieldName', {
+                valueAsNumber: true,
+              })}
+              value={player1ScoreState}
               type="number"
-              value={scoreCount1}
-              {...register('player1ScoreCounterFieldName')}
+              max={21}
               style={{
-                width: '48px',
+                width: '96px',
                 margin: '0px 8px 0px 8px',
                 textAlign: 'center',
                 paddingLeft: '12px',
+                fontSize: '16px',
               }}
             />
-            <button
-              type="button"
-              style={{ backgroundColor: 'grey' }}
-              onClick={() => setScoreCount1(scoreCount1 + 1)}>
+            <CounterButton onClick={() => setPlayer1ScoreState(player1ScoreState + 1)}>
               +
-            </button>
-          </div>
+            </CounterButton>
+          </CounterContainer>
         </div>
         <div>
           <h1>VS</h1>
@@ -66,7 +85,7 @@ function App() {
           <CounterButton $width={128} $height={80} marginBottom={40}>
             Next Game
           </CounterButton>
-          <CounterButton $width={128} $height={80} marginBottom={40}>
+          <CounterButton $width={128} $height={80} marginBottom={40} onClick={() => onSubmit()}>
             Save Match
           </CounterButton>
           <CounterButton $width={128} $height={80} marginBottom={40}>
@@ -75,30 +94,51 @@ function App() {
         </div>
         {/* TODO: Uniquely identify form */}
         <div>
-          <div>
-            <label>Player 2 name</label>
+          <NameInputContainer>
+            <LabelStyled>Player Name</LabelStyled>
             <input type="text" {...register('player2NameFieldName')} />
-          </div>
+          </NameInputContainer>
 
-          <div>
-            <p>Games won</p>
-            {/* <Radio id={'deathSaves2'} name={'deathSaves'} label={'2'} value={''} /> */}
-          </div>
+          <GamesWonContainer>
+            <LabelStyled>Games won</LabelStyled>
+            <div>
+              <input
+                type="checkbox"
+                id="Game1"
+                {...register('player2GamesWonFieldName')}
+                style={{ accentColor: 'green' }}
+              />
+              <input
+                type="checkbox"
+                id="Game2"
+                {...register('player2GamesWonFieldName')}
+                style={{ accentColor: 'green' }}
+              />
+            </div>
+          </GamesWonContainer>
 
-          <div>
-            <button type="button" onClick={() => setScoreCount2(scoreCount2 - 1)}>
+          <LabelStyled>Player score</LabelStyled>
+          <CounterContainer>
+            <CounterButton onClick={() => setPlayer2ScoreState(player2ScoreState - 1)}>
               -
-            </button>
+            </CounterButton>
             <input
+              {...register('player2ScoreCounterFieldName', { valueAsNumber: true })}
               type="number"
-              value={scoreCount2}
-              {...register('player2ScoreCounterFieldName')}
-              style={{ width: '48px' }}
+              value={player2ScoreState}
+              max={21}
+              style={{
+                width: '96px',
+                margin: '0px 8px 0px 8px',
+                textAlign: 'center',
+                paddingLeft: '12px',
+                fontSize: '16px',
+              }}
             />
-            <button type="button" onClick={() => setScoreCount2(scoreCount2 + 1)}>
+            <CounterButton onClick={() => setPlayer2ScoreState(player2ScoreState + 1)}>
               +
-            </button>
-          </div>
+            </CounterButton>
+          </CounterContainer>
         </div>
         <div />
       </Grid>
