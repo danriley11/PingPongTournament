@@ -8,6 +8,7 @@ import {
   ControlsContainer,
   CounterContainer,
   GamesWonContainer,
+  InputContainer,
   NameInputContainer,
   PlayerNamesContainer,
 } from './components/styles/Containers.styles';
