@@ -1,13 +1,18 @@
 import styled from 'styled-components';
-
-export const CounterButton = styled.button<React.ButtonHTMLAttributes<HTMLButtonElement>>`
-  background-color: red;
-  width: 32px;
-  height: 32px;
-  text-align: center;
-`;
+import { rem } from '../core/styles';
 
 export const Arrow = styled.img<{ isArrowRight: boolean }>`
   transform: scaleX(${({ isArrowRight }) => (isArrowRight ? '1' : '-1')});
-  width: 100px;
+  width: ${rem(100)};
+`;
+
+export const CheckboxWrapper = styled.label<{ isActive: boolean }>`
+  user-select: none;
+  color: ${({ isActive }) => (isActive ? `greenYellow` : `crimson`)};
+  text-shadow: ${rem(0)} ${rem(0)} ${rem(10)} ${({ isActive }) => (isActive ? `lime` : `red`)};
+`;
+
+export const HiddenCheckbox = styled.input.attrs(() => ({ type: 'checkbox' }))`
+  height: ${rem(0)};
+  width: ${rem(0)};
 `;

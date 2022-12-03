@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import './App.css';
-import { CounterButton } from './components/buttons/CounterButton.styles';
+import { Button } from './components/buttons/Button.styles';
+import UncontrolledCheckbox from './components/checkbox/UncontrolledCheckbox';
 import { Grid } from './components/core/displays.styles';
 import { PingPongFormData, playerList } from './components/PingPongForm.constants';
 import {
   ControlsContainer,
   CounterContainer,
   GamesWonContainer,
-  InputContainer,
   NameInputContainer,
   PlayerNamesContainer,
 } from './components/styles/Containers.styles';
@@ -18,7 +18,6 @@ import { LabelStyled, List, ListItem } from './components/styles/Typography.styl
 function App() {
   let player1Score = 0;
   let player2Score = 0;
-  const [isActive, setIsActive] = useState(true);
   const [isArrowRight, setIsArrowRight] = useState(true);
 
   const formMethods = useForm<PingPongFormData>({
@@ -31,9 +30,8 @@ function App() {
 
   const onSubmit = handleSubmit((formData) => console.log(formData));
 
-  //TODO: Player list items should change colour independently
+  //TODO: Breakdown code into components
   //TODO: Save match should update to airtable
-  //TODO: Breakdown content into components
   return (
     <form onSubmit={onSubmit}>
       <Grid cols="1fr 1fr 1fr 1fr 1fr" marginLeft={20} style={{ border: '3px solid red' }}>
@@ -65,9 +63,9 @@ function App() {
 
           <LabelStyled>Player score</LabelStyled>
           <CounterContainer>
-            <CounterButton onClick={() => setValue('player1ScoreCounterFieldName', player1Score--)}>
+            <Button onClick={() => setValue('player1ScoreCounterFieldName', player1Score--)}>
               -
-            </CounterButton>
+            </Button>
             <input
               {...register('player1ScoreCounterFieldName', {
                 valueAsNumber: true,
@@ -83,24 +81,16 @@ function App() {
                 fontSize: '16px',
               }}
             />
-            <CounterButton onClick={() => setValue('player1ScoreCounterFieldName', player1Score++)}>
+            <Button onClick={() => setValue('player1ScoreCounterFieldName', player1Score++)}>
               +
-            </CounterButton>
+            </Button>
           </CounterContainer>
 
           <LabelStyled>Player list</LabelStyled>
           <PlayerNamesContainer>
-            <List>
-              {playerList.map((player) => (
-                <ListItem
-                  key={player.name}
-                  id={player.name}
-                  isActive={isActive}
-                  onClick={() => setIsActive(!isActive)}>
-                  {player.name}
-                </ListItem>
-              ))}
-            </List>
+            {playerList.map((player) => (
+              <UncontrolledCheckbox key={player.name} player={player} />
+            ))}
           </PlayerNamesContainer>
         </div>
         <div id="middleColumn">
@@ -114,15 +104,15 @@ function App() {
           />
 
           <ControlsContainer>
-            <CounterButton
+            <Button
               $width={128}
               $height={80}
               marginBottom={40}
               onClick={() => setIsArrowRight(!isArrowRight)}>
               Swap Server
-            </CounterButton>
+            </Button>
 
-            <CounterButton
+            <Button
               $width={128}
               $height={80}
               marginBottom={40}
@@ -133,11 +123,11 @@ function App() {
                 });
               }}>
               Next Game
-            </CounterButton>
-            <CounterButton $width={128} $height={80} marginBottom={40} onClick={() => onSubmit()}>
+            </Button>
+            <Button $width={128} $height={80} marginBottom={40} onClick={() => onSubmit()}>
               Save Match
-            </CounterButton>
-            <CounterButton
+            </Button>
+            <Button
               $width={128}
               $height={80}
               marginBottom={40}
@@ -152,7 +142,7 @@ function App() {
                 });
               }}>
               Reset
-            </CounterButton>
+            </Button>
           </ControlsContainer>
         </div>
         <div id="rightColumn">
@@ -181,9 +171,9 @@ function App() {
 
           <LabelStyled>Player score</LabelStyled>
           <CounterContainer>
-            <CounterButton onClick={() => setValue('player2ScoreCounterFieldName', player2Score--)}>
+            <Button onClick={() => setValue('player2ScoreCounterFieldName', player2Score--)}>
               +
-            </CounterButton>
+            </Button>
             <input
               {...register('player2ScoreCounterFieldName', {
                 valueAsNumber: true,
@@ -199,9 +189,9 @@ function App() {
                 fontSize: '16px',
               }}
             />
-            <CounterButton onClick={() => setValue('player2ScoreCounterFieldName', player2Score++)}>
+            <Button onClick={() => setValue('player2ScoreCounterFieldName', player2Score++)}>
               +
-            </CounterButton>
+            </Button>
           </CounterContainer>
         </div>
         <div />

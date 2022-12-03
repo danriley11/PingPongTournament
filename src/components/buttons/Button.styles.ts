@@ -2,13 +2,13 @@ import styled from 'styled-components';
 import { spacing12, spacing64 } from '../core/spacing';
 import { rem } from '../core/styles';
 
-type CounterButtonProps = {
-  $width: string;
-  $height: string;
-  marginBottom: string;
+type ButtonProps = {
+  $width?: string;
+  $height?: string;
+  marginBottom?: string;
 };
 
-export const CounterButton = styled.button.attrs<CounterButtonProps>({
+export const Button = styled.button.attrs<ButtonProps>({
   type: 'button',
 })`
   border: none;
