@@ -1,10 +1,10 @@
 export type PingPongFormData = {
   player1NameFieldName: string;
   player1GamesWonFieldName: string;
-  player1ScoreCounterFieldName: string;
+  player1ScoreCounterFieldName: number;
   player2NameFieldName: string;
   player2GamesWonFieldName: string;
-  player2ScoreCounterFieldName: string;
+  player2ScoreCounterFieldName: number;
 };
 
 export const playerList = [

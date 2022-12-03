@@ -16,13 +16,17 @@ import { Arrow } from './components/styles/Inputs.styles';
 import { LabelStyled, List, ListItem } from './components/styles/Typography.styles';
 
 function App() {
-  const [player1ScoreState, setPlayer1ScoreState] = useState(0);
-  const [player2ScoreState, setPlayer2ScoreState] = useState(0);
-  const [isActive, setIsActive] = useState(true);
+  let player1Score = 0;
+  let player2Score = 0;
   const [isArrowRight, setIsArrowRight] = useState(true);
 
-  const formMethods = useForm<PingPongFormData>();
-  const { register, handleSubmit, reset } = formMethods;
+  const formMethods = useForm<PingPongFormData>({
+    defaultValues: {
+      player1ScoreCounterFieldName: 0,
+      player2ScoreCounterFieldName: 0,
+    },
+  });
+  const { register, handleSubmit, reset, watch, setValue } = formMethods;
 
   const onSubmit = handleSubmit((formData) => console.log(formData));
 
@@ -59,13 +63,15 @@ function App() {
 
           <LabelStyled>Player score</LabelStyled>
           <CounterContainer>
-            <Button onClick={() => setPlayer1ScoreState(player1ScoreState - 1)}>-</Button>
+            <Button onClick={() => setValue('player1ScoreCounterFieldName', player1Score--)}>
+              -
+            </Button>
             <input
               {...register('player1ScoreCounterFieldName', {
                 valueAsNumber: true,
               })}
-              value={player1ScoreState}
               type="number"
+              value={player1Score}
               max={21}
               style={{
                 width: '96px',
@@ -75,7 +81,9 @@ function App() {
                 fontSize: '16px',
               }}
             />
-            <Button onClick={() => setPlayer1ScoreState(player1ScoreState + 1)}>+</Button>
+            <Button onClick={() => setValue('player1ScoreCounterFieldName', player1Score++)}>
+              +
+            </Button>
           </CounterContainer>
 
           <LabelStyled>Player list</LabelStyled>
@@ -92,6 +100,7 @@ function App() {
             src="serverArrow.svg"
             isArrowRight={isArrowRight}
             onClick={() => setIsArrowRight(!isArrowRight)}
+            type="button"
           />
 
           <ControlsContainer>
@@ -108,8 +117,10 @@ function App() {
               $height={80}
               marginBottom={40}
               onClick={() => {
-                setPlayer1ScoreState(0);
-                setPlayer2ScoreState(0);
+                reset({
+                  player1ScoreCounterFieldName: 0,
+                  player2ScoreCounterFieldName: 0,
+                });
               }}>
               Next Game
             </Button>
@@ -124,11 +135,11 @@ function App() {
                 reset({
                   player1NameFieldName: '',
                   player1GamesWonFieldName: '',
+                  player1ScoreCounterFieldName: 0,
                   player2NameFieldName: '',
                   player2GamesWonFieldName: '',
+                  player2ScoreCounterFieldName: 0,
                 });
-                setPlayer1ScoreState(0);
-                setPlayer2ScoreState(0);
               }}>
               Reset
             </Button>
@@ -160,11 +171,15 @@ function App() {
 
           <LabelStyled>Player score</LabelStyled>
           <CounterContainer>
-            <Button onClick={() => setPlayer2ScoreState(player2ScoreState - 1)}>-</Button>
+            <Button onClick={() => setValue('player2ScoreCounterFieldName', player2Score--)}>
+              +
+            </Button>
             <input
-              {...register('player2ScoreCounterFieldName', { valueAsNumber: true })}
+              {...register('player2ScoreCounterFieldName', {
+                valueAsNumber: true,
+              })}
               type="number"
-              value={player2ScoreState}
+              value={player2Score}
               max={21}
               style={{
                 width: '96px',
@@ -174,7 +189,9 @@ function App() {
                 fontSize: '16px',
               }}
             />
-            <Button onClick={() => setPlayer2ScoreState(player2ScoreState + 1)}>+</Button>
+            <Button onClick={() => setValue('player2ScoreCounterFieldName', player2Score++)}>
+              +
+            </Button>
           </CounterContainer>
         </div>
         <div />
