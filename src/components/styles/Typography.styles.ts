@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
-export const LabelStyled = styled.p`
+export const LabelStyled = styled.label`
   margin: 16px 0px 8px 0px;
   font-size: larger;
   font-weight: bold;
+  user-select: none;
 `;
 
 export const List = styled.ul`
