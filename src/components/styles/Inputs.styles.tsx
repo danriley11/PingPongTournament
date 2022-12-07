@@ -16,3 +16,12 @@ export const HiddenCheckbox = styled.input.attrs(() => ({ type: 'checkbox' }))`
   height: ${rem(0)};
   width: ${rem(0)};
 `;
+
+export const ScoreInput = styled.input.attrs(() => ({ type: 'number' }))`
+  width: ${rem(96)};
+  margin: ${rem(0)} ${rem(8)} ${rem(0)} ${rem(8)};
+  padding-left: ${rem(16)};
+  text-align: center;
+  align-items: center;
+  font-size: ${rem(16)};
+`;

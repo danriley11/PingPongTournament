@@ -4,15 +4,19 @@ import './App.css';
 import { Button } from './components/buttons/Button.styles';
 import UncontrolledCheckbox from './components/checkbox/UncontrolledCheckbox';
 import { Grid } from './components/core/displays.styles';
+import GamesWon from './components/gamesWon/GamesWon';
 import { PingPongFormData, playerList } from './components/PingPongForm.constants';
+import Player from './components/player/Player';
+import PlayerScore from './components/playerScore/PlayerScore';
 import {
   ControlsContainer,
   CounterContainer,
   GamesWonContainer,
   NameInputContainer,
+  PlayerContainer,
   PlayerNamesContainer,
 } from './components/styles/Containers.styles';
-import { Arrow } from './components/styles/Inputs.styles';
+import { Arrow, ScoreInput } from './components/styles/Inputs.styles';
 import { LabelStyled, List, ListItem } from './components/styles/Typography.styles';
 
 function App() {
@@ -34,10 +38,8 @@ function App() {
   //TODO: Save match should update to airtable
   return (
     <form onSubmit={onSubmit}>
-      <Grid cols="1fr 1fr 1fr 1fr 1fr" marginLeft={20} style={{ border: '3px solid red' }}>
-        <div />
-        {/* TODO: Uniquely identify form */}
-        <div id="leftColumn">
+      <Grid cols={'1fr 1fr 1fr'}>
+        <PlayerContainer id="leftColumn" marginLeft={100} marginRight={50}>
           <NameInputContainer>
             <LabelStyled>Player Name</LabelStyled>
             <input type="text" {...register('player1NameFieldName')} />
@@ -64,22 +66,15 @@ function App() {
           <LabelStyled>Player score</LabelStyled>
           <CounterContainer>
             <Button onClick={() => setValue('player1ScoreCounterFieldName', player1Score--)}>
-              -
+              –
             </Button>
-            <input
+            <ScoreInput
               {...register('player1ScoreCounterFieldName', {
                 valueAsNumber: true,
               })}
               type="number"
               value={player1Score}
               max={21}
-              style={{
-                width: '96px',
-                margin: '0px 8px 0px 8px',
-                textAlign: 'center',
-                paddingLeft: '12px',
-                fontSize: '16px',
-              }}
             />
             <Button onClick={() => setValue('player1ScoreCounterFieldName', player1Score++)}>
               +
@@ -92,7 +87,7 @@ function App() {
               <UncontrolledCheckbox key={player.name} player={player} />
             ))}
           </PlayerNamesContainer>
-        </div>
+        </PlayerContainer>
         <div id="middleColumn">
           <h1>VS</h1>
 
@@ -145,7 +140,7 @@ function App() {
             </Button>
           </ControlsContainer>
         </div>
-        <div id="rightColumn">
+        <PlayerContainer id="rightColumn" marginLeft={100} marginRight={50}>
           <NameInputContainer>
             <LabelStyled>Player Name</LabelStyled>
             <input type="text" {...register('player2NameFieldName')} />
@@ -172,28 +167,21 @@ function App() {
           <LabelStyled>Player score</LabelStyled>
           <CounterContainer>
             <Button onClick={() => setValue('player2ScoreCounterFieldName', player2Score--)}>
-              +
+              –
             </Button>
-            <input
+            <ScoreInput
               {...register('player2ScoreCounterFieldName', {
                 valueAsNumber: true,
               })}
               type="number"
               value={player2Score}
               max={21}
-              style={{
-                width: '96px',
-                margin: '0px 8px 0px 8px',
-                textAlign: 'center',
-                paddingLeft: '12px',
-                fontSize: '16px',
-              }}
             />
             <Button onClick={() => setValue('player2ScoreCounterFieldName', player2Score++)}>
               +
             </Button>
           </CounterContainer>
-        </div>
+        </PlayerContainer>
         <div />
       </Grid>
     </form>
