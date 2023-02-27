@@ -1,14 +1,21 @@
 import styled from 'styled-components';
-import { spacing16, spacing24, spacing64 } from '../core/spacing';
-import { rem } from '../core/styles';
+import { rem, spacing16, spacing24, spacing64 } from '../core/spacing';
 
-type PlayerContainerProps = {
-  marginLeft: number;
-  marginRight: number;
-};
-export const PlayerContainer = styled.div<PlayerContainerProps>`
-  margin-left: ${({ marginLeft }) => rem(marginLeft)};
-  margin-right: ${({ marginRight }) => rem(marginRight)};
+export const PingPongGameContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin-top: ${rem(spacing64)};
+`;
+
+export const ControlsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+
+  img {
+    align-self: center;
+  }
 `;
 
 export const InputContainer = styled.div`
@@ -37,15 +44,9 @@ export const CounterContainer = styled.div`
 `;
 
 export const PlayerNamesContainer = styled.div`
+  display: flex;
+  width: 350px;
+  flex-wrap: wrap;
   box-sizing: border-box;
   text-align: center;
-`;
-
-export const ControlsContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-row: 1fr 1fr 1fr 1fr;
-  justify-items: center;
-
-  padding: 0px;
 `;

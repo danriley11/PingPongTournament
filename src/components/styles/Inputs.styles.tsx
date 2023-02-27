@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import { rem } from '../core/styles';
+import { rem } from '../core/spacing';
 
 export const Arrow = styled.img<{ isArrowRight: boolean }>`
-  transform: scaleX(${({ isArrowRight }) => (isArrowRight ? '1' : '-1')});
   width: ${rem(100)};
+  transform: scaleX(${({ isArrowRight }) => (isArrowRight ? '1' : '-1')});
+  transition: transform 0.2s;
 `;
 
 export const CheckboxWrapper = styled.label<{ isActive: boolean }>`

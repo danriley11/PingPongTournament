@@ -1,81 +1,88 @@
 export type PingPongFormData = {
-  player1NameFieldName: string;
-  player1GamesWonFieldName: string;
-  player1ScoreCounterFieldName: number;
-  player2NameFieldName: string;
-  player2GamesWonFieldName: string;
-  player2ScoreCounterFieldName: number;
+  player1Name: string;
+  player1Wins: boolean[];
+  player1Scores: number[];
+  player1Opponent: string;
+  player2Name: string;
+  player2Wins: boolean[];
+  player2Scores: number[];
+  player2Opponent: string;
 };
 
 export const playerList = [
   {
     name: 'Katrina',
     nickname: 'Kav',
-    state: true,
+    state: false,
   },
   {
     name: 'Brad',
     nickname: 'B-Rad',
-    state: true,
+    state: false,
   },
   {
     name: 'Georgia',
     nickname: 'Gas',
-    state: true,
+    state: false,
   },
   {
     name: 'Richie',
     nickname: '',
-    state: true,
+    state: false,
   },
   {
     name: 'Michael',
     nickname: 'MC',
-    state: true,
+    state: false,
   },
   {
     name: 'Lainey',
     nickname: 'Lains',
-    state: true,
+    state: false,
   },
   {
     name: 'Elaine',
     nickname: 'Elaine',
-    state: true,
+    state: false,
   },
   {
     name: 'Mark',
     nickname: 'Markoos',
-    state: true,
+    state: false,
   },
   {
     name: 'Akhil',
     nickname: 'Khil-A',
-    state: true,
+    state: false,
   },
   {
     name: 'Alicia',
     nickname: 'Alicia',
-    state: true,
+    state: false,
   },
   {
     name: 'Jess',
     nickname: 'Jess',
-    state: true,
+    state: false,
   },
   {
     name: 'Sam',
     nickname: 'Swirley',
-    state: true,
+    state: false,
+  },
+  {
+    name: 'Singo',
+    nickname: 'Singo',
+    state: false,
   },
   {
     name: 'Dan',
     nickname: 'Dan',
-    state: true,
+    state: false,
   },
   {
     name: 'Jonny',
     nickname: 'Jonny',
-    state: true,
+    state: false,
   },
 ];
