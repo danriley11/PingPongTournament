@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { spacing12, spacing64 } from '../core/spacing';
-import { rem } from '../core/styles';
+import { rem, spacing12, spacing64 } from '../core/spacing';
 
 type ButtonProps = {
   $width?: string;
