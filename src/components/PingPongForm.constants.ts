@@ -1,11 +1,11 @@
 export type PingPongFormData = {
   player1Name: string;
   player1Wins: boolean[];
-  player1Scores: number[];
+  player1Scores: number;
   player1Opponent: string;
   player2Name: string;
   player2Wins: boolean[];
-  player2Scores: number[];
+  player2Scores: number;
   player2Opponent: string;
 };
 

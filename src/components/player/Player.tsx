@@ -1,29 +1,29 @@
-import { useForm } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { Button } from '../buttons/Button.styles';
 import UncontrolledCheckbox from '../checkbox/UncontrolledCheckbox';
 import { Spacing32, Spacing64 } from '../core/spacing';
-import { playerList } from '../PingPongForm.constants';
+import { PingPongFormData, playerList } from '../PingPongForm.constants';
 import { PlayerNamesContainer } from '../styles/Containers.styles';
 import { ScoreInput } from '../styles/Inputs.styles';
 import { LabelStyled } from '../styles/Typography.styles';
 import { PlayerContainer, PlayerScoreContainer } from './Player.styles';
 
 type PlayerProps = {
-  playerNumber: number;
+  isPlayer1: boolean;
   isLeft?: boolean;
   isRight?: boolean;
 };
-const Player = ({ playerNumber, isLeft, isRight }: PlayerProps) => {
-  const formMethods = useForm();
-  const { register, setValue } = formMethods;
+const Player = ({ isLeft, isRight, isPlayer1 }: PlayerProps) => {
+  const { register, setValue } = useFormContext<PingPongFormData>();
 
-  let playerScore = 0;
+  let player1Score = 0;
+  let player2Score = 0;
 
   return (
     <PlayerContainer>
       <LabelStyled>Player name:</LabelStyled>
       <Spacing64>
-        <select {...register(`player${playerNumber}Name`)}>
+        <select {...register(isPlayer1 ? 'player1Name' : 'player2Name')}>
           <option value={undefined}>Select a name</option>
           {playerList.map((player) => (
             <option value={player.name} key={player.name}>
@@ -39,31 +39,47 @@ const Player = ({ playerNumber, isLeft, isRight }: PlayerProps) => {
           <input
             type="checkbox"
             id="Game1"
-            {...register(`player${playerNumber}Game`)}
+            {...register(isPlayer1 ? 'player1Wins' : 'player2Wins')}
             style={{ accentColor: 'green' }}
           />
           <input
             type="checkbox"
             id="Game2"
-            {...register(`player${playerNumber}Game`)}
+            {...register(isPlayer1 ? 'player1Wins' : 'player2Wins')}
             style={{ accentColor: 'green' }}
           />
         </div>
       </Spacing32>
 
-      <LabelStyled htmlFor={`player${playerNumber}Score`}>Score</LabelStyled>
+      <LabelStyled htmlFor={`player1Scores`}>Score</LabelStyled>
       <Spacing64>
         <PlayerScoreContainer>
-          <Button onClick={() => setValue(`player${playerNumber}Score`, playerScore--)}>-</Button>
+          <Button
+            onClick={() =>
+              setValue(
+                isPlayer1 ? 'player1Scores' : 'player2Scores',
+                isPlayer1 ? player1Score-- : player2Score--,
+              )
+            }>
+            -
+          </Button>
           <ScoreInput
-            id={`player${playerNumber}Score`}
-            {...register(`player${playerNumber}Score`, { valueAsNumber: true })}
+            id={isPlayer1 ? 'player1Scores' : 'player2Scores'}
+            {...register(isPlayer1 ? 'player1Scores' : 'player2Scores', { valueAsNumber: true })}
             type="number"
-            value={playerScore}
+            value={isPlayer1 ? player1Score : player2Score}
             max={21}
             min={0}
           />
-          <Button onClick={() => setValue(`player${playerNumber}Score`, playerScore++)}>+</Button>
+          <Button
+            onClick={() =>
+              setValue(
+                isPlayer1 ? 'player1Scores' : 'player2Scores',
+                isPlayer1 ? player1Score++ : player2Score++,
+              )
+            }>
+            +
+          </Button>
         </PlayerScoreContainer>
       </Spacing64>
 

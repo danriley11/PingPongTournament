@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import { spacing64 } from '../core/spacing';
-import { rem } from '../core/styles';
 
 export const PlayerContainer = styled.div`
   display: flex;
