@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Button } from '../buttons/Button.styles';
 import UncontrolledCheckbox from '../checkbox/UncontrolledCheckbox';
@@ -14,10 +15,32 @@ type PlayerProps = {
   isRight?: boolean;
 };
 const Player = ({ isLeft, isRight, isPlayer1 }: PlayerProps) => {
-  const { register, setValue } = useFormContext<PingPongFormData>();
+  const { register, setValue, getValues } = useFormContext<PingPongFormData>();
 
-  let player1Score = 0;
-  let player2Score = 0;
+  const [player1Score, setPlayer1Score] = useState(getValues('player1Scores'));
+  const [player2Score, setPlayer2Score] = useState(getValues('player2Scores'));
+
+  useEffect(() => {}, [player1Score, player2Score]);
+
+  const handleDecrement = () => {
+    if (isPlayer1) {
+      setPlayer1Score(player1Score - 1);
+      setValue('player1Scores', player1Score - 1);
+    } else {
+      setPlayer2Score(player2Score - 1);
+      setValue('player2Scores', player2Score - 1);
+    }
+  };
+
+  const handleIncrement = () => {
+    if (isPlayer1) {
+      setPlayer1Score(player1Score + 1);
+      setValue('player1Scores', player1Score + 1);
+    } else {
+      setPlayer2Score(player2Score + 1);
+      setValue('player2Scores', player2Score + 1);
+    }
+  };
 
   return (
     <PlayerContainer>
@@ -51,18 +74,10 @@ const Player = ({ isLeft, isRight, isPlayer1 }: PlayerProps) => {
         </div>
       </Spacing32>
 
-      <LabelStyled htmlFor={`player1Scores`}>Score</LabelStyled>
+      <LabelStyled htmlFor={isPlayer1 ? 'player1Scores' : 'player2Scores'}>Score</LabelStyled>
       <Spacing64>
         <PlayerScoreContainer>
-          <Button
-            onClick={() =>
-              setValue(
-                isPlayer1 ? 'player1Scores' : 'player2Scores',
-                isPlayer1 ? player1Score-- : player2Score--,
-              )
-            }>
-            -
-          </Button>
+          <Button onClick={handleDecrement}>-</Button>
           <ScoreInput
             id={isPlayer1 ? 'player1Scores' : 'player2Scores'}
             {...register(isPlayer1 ? 'player1Scores' : 'player2Scores', { valueAsNumber: true })}
@@ -71,15 +86,7 @@ const Player = ({ isLeft, isRight, isPlayer1 }: PlayerProps) => {
             max={21}
             min={0}
           />
-          <Button
-            onClick={() =>
-              setValue(
-                isPlayer1 ? 'player1Scores' : 'player2Scores',
-                isPlayer1 ? player1Score++ : player2Score++,
-              )
-            }>
-            +
-          </Button>
+          <Button onClick={handleIncrement}>+</Button>
         </PlayerScoreContainer>
       </Spacing64>
 
