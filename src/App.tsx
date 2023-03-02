@@ -26,7 +26,11 @@ function App() {
   });
   const { handleSubmit, reset } = formMethods;
 
-  const onSubmit = handleSubmit((formData) => console.log(formData));
+  const onSubmit = handleSubmit((formData) => {
+    (formData.player1Opponent = formData.player2Name),
+      (formData.player2Opponent = formData.player1Name),
+      console.log(formData);
+  });
   // const onSubmit = handleSubmit(async (formData) => {
   //   await xxx({
   //     variables: {
